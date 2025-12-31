@@ -119,6 +119,12 @@ export const getAllMangas = async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching mangas:', error);
+    if (error.code === 'ECONNREFUSED' || error.code === 'ER_BAD_DB_ERROR') {
+      return res.status(503).json({ 
+        error: 'Database niet beschikbaar', 
+        message: 'Zorg dat MySQL draait en dat de database correct is geconfigureerd' 
+      });
+    }
     res.status(400).json({ error: error.message || 'Fout bij ophalen van manga\'s' });
   }
 };
@@ -148,6 +154,12 @@ export const getMangaById = async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching manga:', error);
+    if (error.code === 'ECONNREFUSED' || error.code === 'ER_BAD_DB_ERROR') {
+      return res.status(503).json({ 
+        error: 'Database niet beschikbaar', 
+        message: 'Zorg dat MySQL draait en dat de database correct is geconfigureerd' 
+      });
+    }
     res.status(500).json({ error: 'Fout bij ophalen van manga' });
   }
 };

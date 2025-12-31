@@ -57,6 +57,12 @@ export const getAllUsers = async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching users:', error);
+    if (error.code === 'ECONNREFUSED' || error.code === 'ER_BAD_DB_ERROR') {
+      return res.status(503).json({ 
+        error: 'Database niet beschikbaar', 
+        message: 'Zorg dat MySQL draait en dat de database correct is geconfigureerd' 
+      });
+    }
     res.status(500).json({ error: 'Fout bij ophalen van gebruikers' });
   }
 };
@@ -76,6 +82,12 @@ export const getUserById = async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching user:', error);
+    if (error.code === 'ECONNREFUSED' || error.code === 'ER_BAD_DB_ERROR') {
+      return res.status(503).json({ 
+        error: 'Database niet beschikbaar', 
+        message: 'Zorg dat MySQL draait en dat de database correct is geconfigureerd' 
+      });
+    }
     res.status(500).json({ error: 'Fout bij ophalen van gebruiker' });
   }
 };
