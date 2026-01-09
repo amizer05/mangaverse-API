@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangaVerse API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .endpoint {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .method {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-right: 15px;
+            min-width: 70px;
+            text-align: center;
+        }
+        
+        .method.get { background: #61affe; color: white; }
+        .method.post { background: #49cc90; color: white; }
+        .method.put { background: #fca130; color: white; }
+        .method.delete { background: #f93e3e; color: white; }
+        
+        .url {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .section {
+            margin: 15px 0;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+        
+        .params {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin-top: 8px;
+        }
+        
+        .params code {
+            color: #e83e8c;
+        }
+        
+        .example {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin-top: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+        
+        .auth-badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .admin-badge {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .response {
+            margin-top: 15px;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .info-box strong {
+            color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 MangaVerse API</h1>
+            <p>Complete API Documentation voor Manga & News Management</p>
+        </header>
+        
+        <div class="info-box">
+            <strong>Base URL:</strong> http://localhost:3000<br>
+            <strong>Content-Type:</strong> application/json<br>
+            <strong>Authentication:</strong> Bearer token (voor POST/PUT/DELETE)
+        </div>
+        
+        <h2>🔐 Authentication Endpoints</h2>
+        
+        <div class="endpoint">
+            <div class="endpoint-header">
+                <span class="method post">POST</span>
+                <span class="url">/auth/register</span>
+            </div>
+            <div class="description">Registreer een nieuwe gebruiker</div>
+            <div class="section">
+                <div class="section-title">Request Body:</div>
+                <div class="params">
+                    {<br>
+                    &nbsp;&nbsp;"email": "user@example.com",<br>
+                    &nbsp;&nbsp;"password": "password123",<br>
+                    &nbsp;&nbsp;"role": "user" // optioneel: "user" of "admin"<br>
+                    }
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">Response (201):</div>
+                <div class="example">
+{<br>
+&nbsp;&nbsp;"message": "User registered successfully",<br>
+&nbsp;&nbsp;"userId": 1<br>
+}
+                </div>
+            </div>
+        </div>
+        
+        <div class="endpoint">
+            <div class="endpoint-header">
+                <span class="method post">POST</span>
+                <span class="url">/auth/login</span>
+            </div>
+            <div class="description">Login en ontvang JWT token</div>
+            <div class="section">
+                <div class="section-title">Request Body:</div>
+                <div class="params">
+                    {<br>
+                    &nbsp;&nbsp;"email": "user@example.com",<br>
+                    &nbsp;&nbsp;"password": "password123"<br>
+                    }
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">Response (200):</div>
+                <div class="example">
+{<br>
+&nbsp;&nbsp;"message": "Login successful",<br>
+&nbsp;&nbsp;"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",<br>
+&nbsp;&nbsp;"user": {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"id": 1,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"email": "user@example.com",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"role": "user"<br>
+&nbsp;&nbsp;}<br>
+}
+                </div>
+            </div>
+        </div>
+        
+        <h2>📖 Manga Endpoints</h2>
+        
+        <div class="endpoint">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="url">/mangas</span>
+            </div>
+            <div class="description">Lijst alle mangas met paginatie, zoeken en sorteren</div>
+            <div class="section">
+                <div class="section-title">Query Parameters:</div>
+                <div class="params">
+                    <code>limit</code> (optioneel): aantal resultaten (default: 10, max: 100)<br>
+                    <code>offset</code> (optioneel): aantal over te slaan (default: 0)<br>
+                    <code>search</code> (optioneel): zoekterm voor title/description<br>
+                    <code>sort</code> (optioneel): sorteer veld (id, title, release_date, created_at)<br>
+                    <code>order</code> (optioneel): sorteer volgorde (asc, desc)
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">Voorbeeld:</div>
+                <div class="example">
+GET /mangas?limit=10&offset=20&search=naruto&sort=title&order=asc
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">Response (200):</div>
+                <div class="example">
+{<br>
+&nbsp;&nbsp;"data": [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id": 1,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"title": "Naruto",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"slug": "naruto",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"description": "A young ninja...",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"release_date": "2002-09-21",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cover_image": "https://example.com/naruto.jpg"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;],<br>
+&nbsp;&nbsp;"pagination": {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"total": 50,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"limit": 10,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"offset": 20,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"hasMore": true<br>
+&nbsp;&nbsp;}<br>
+}
+                </div>
+            </div>
+        </div>
+        
+        <div class="endpoint">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="url">/mangas/:id</span>
+            </div>
+            <div class="description">Haal een specifieke manga op met gerelateerde news</div>
+            <div class="section">
+                <div class="section-title">Response (200):</div>
+                <div class="example">
+{<br>
+&nbsp;&nbsp;"data": {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"id": 1,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"title": "Naruto",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"slug": "naruto",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"description": "...",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"release_date": "2002-09-21",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"cover_image": "...",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"news": [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "id": 1, "title": "...", "content": "..." }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;}<br>
+}
+                </div>
+            </div>
+        </div>
+        
+        <div class="endpoint">
+            <div class="endpoint-header">
+                <span class="method post">POST</span>
+                <span class="url">/mangas</span>
+                <span class="auth-badge">🔒 AUTH REQUIRED</span>
+            </div>
+            <div class="description">Maak een nieuwe manga aan</div>
+            <div class="section">
+                <div class="section-title">Headers:</div>
+                <div class="params">
+                    Authorization: Bearer &lt;token&gt;
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">Request Body:</div>
+                <div class="params">
+                    {<br>
+                    &nbsp;&nbsp;"title": "One Piece", // verplicht, max 255, geen cijfers<br>
+                    &nbsp;&nbsp;"description": "A pirate adventure...", // verplicht, max 255<br>
+                    &nbsp;&nbsp;"release_date": "1997-07-22", // verplicht, YYYY-MM-DD, niet in toekomst<br>
+                    &nbsp;&nbsp;"cover_image": "https://example.com/onepiece.jpg", // optioneel, URL<br>
+                    &nbsp;&nbsp;"slug": "one-piece" // optioneel, auto-generated<br>
+                    }
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">Response (201):</div>
+                <div class="example">
+{<br>
+&nbsp;&nbsp;"message": "Manga created successfully",<br>
+&nbsp;&nbsp;"data": { ... }<br>
+}
+                </div>
+            </div>
+        </div>
+        
+        <div class="endpoint">
+            <div class="endpoint-header">
+                <span class="method put">PUT</span>
+                <span class="url">/mangas/:id</span>
+                <span class="auth-badge">🔒 AUTH REQUIRED</span>
+            </div>
+            <div class="description">Update een bestaande manga</div>
+            <div class="section">
+                <div class="section-title">Request Body:</div>
+                <div class="params">
+                    Alle velden optioneel (alleen te updaten velden sturen)
+                </div>
+            </div>
+        </div>
+        
+        <div class="endpoint">
+            <div class="endpoint-header">
+                <span class="method delete">DELETE</span>
+                <span class="url">/mangas/:id</span>
+                <span class="auth-badge admin-badge">🔒 ADMIN ONLY</span>
+            </div>
+            <div class="description">Verwijder een manga (alleen admin)</div>
+            <div class="section">
+                <div class="section-title">Response (200):</div>
+                <div class="example">
+{<br>
+&nbsp;&nbsp;"message": "Manga deleted successfully"<br>
+}
+                </div>
+            </div>
+        </div>
+        
+        <h2>📰 News Endpoints</h2>
+        
+        <div class="endpoint">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="url">/news</span>
+            </div>
+            <div class="description">Lijst alle news met paginatie, zoeken en filteren</div>
+            <div class="section">
+                <div class="section-title">Query Parameters:</div>
+                <div class="params">
+                    <code>limit</code>, <code>offset</code>, <code>search</code>, <code>sort</code>, <code>order</code><br>
+                    <code>category</code> (optioneel): filter op category (action, romance, comedy, drama)<br>
+                    <code>manga_id</code> (optioneel): filter op manga ID
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">Voorbeeld:</div>
+                <div class="example">
+GET /news?category=action&limit=5&sort=created_at&order=desc
+                </div>
+            </div>
+        </div>
+        
+        <div class="endpoint">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="url">/news/:id</span>
+            </div>
+            <div class="description">Haal een specifieke news op</div>
+        </div>
+        
+        <div class="endpoint">
+            <div class="endpoint-header">
+                <span class="method post">POST</span>
+                <span class="url">/news</span>
+                <span class="auth-badge">🔒 AUTH REQUIRED</span>
+            </div>
+            <div class="description">Maak een nieuwe news aan</div>
+            <div class="section">
+                <div class="section-title">Request Body:</div>
+                <div class="params">
+                    {<br>
+                    &nbsp;&nbsp;"title": "New Chapter Release", // verplicht, max 255<br>
+                    &nbsp;&nbsp;"content": "Chapter 1000 is finally here...", // verplicht, min 20 chars<br>
+                    &nbsp;&nbsp;"category": "action", // verplicht: action, romance, comedy, drama<br>
+                    &nbsp;&nbsp;"manga_id": 1 // optioneel, foreign key naar mangas<br>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="endpoint">
+            <div class="endpoint-header">
+                <span class="method put">PUT</span>
+                <span class="url">/news/:id</span>
+                <span class="auth-badge">🔒 AUTH REQUIRED</span>
+            </div>
+            <div class="description">Update een bestaande news</div>
+        </div>
+        
+        <div class="endpoint">
+            <div class="endpoint-header">
+                <span class="method delete">DELETE</span>
+                <span class="url">/news/:id</span>
+                <span class="auth-badge admin-badge">🔒 ADMIN ONLY</span>
+            </div>
+            <div class="description">Verwijder een news (alleen admin)</div>
+        </div>
+        
+        <h2>📊 Status Codes</h2>
+        <div class="endpoint">
+            <div class="params">
+                <strong>200</strong> OK - Succesvolle request<br>
+                <strong>201</strong> Created - Resource aangemaakt<br>
+                <strong>400</strong> Bad Request - Validatie fout<br>
+                <strong>401</strong> Unauthorized - Geen/ongeldig token<br>
+                <strong>403</strong> Forbidden - Geen admin rechten<br>
+                <strong>404</strong> Not Found - Resource niet gevonden<br>
+                <strong>500</strong> Internal Server Error - Server fout
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 40px 0; color: #666;">
+            <p>MangaVerse API v1.0.0 | Node.js + Express + MySQL</p>
+        </div>
+    </div>
+</body>
+</html>
+
+
