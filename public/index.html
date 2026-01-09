@@ -171,7 +171,8 @@
         <div class="info-box">
             <strong>Base URL:</strong> http://localhost:3000<br>
             <strong>Content-Type:</strong> application/json<br>
-            <strong>Authentication:</strong> Bearer token (voor POST/PUT/DELETE)
+            <strong>Authentication:</strong> Bearer token (voor POST/PUT/DELETE)<br>
+            <strong>Demo Credentials:</strong> demo@test.com / demo123 (admin)
         </div>
         
         <h2>🔐 Authentication Endpoints</h2>
@@ -186,9 +187,9 @@
                 <div class="section-title">Request Body:</div>
                 <div class="params">
                     {<br>
-                    &nbsp;&nbsp;"email": "user@example.com",<br>
-                    &nbsp;&nbsp;"password": "password123",<br>
-                    &nbsp;&nbsp;"role": "user" // optioneel: "user" of "admin"<br>
+                    &nbsp;&nbsp;"email": "demo@test.com", // of gebruik eigen email<br>
+                    &nbsp;&nbsp;"password": "demo123", // min 6 characters<br>
+                    &nbsp;&nbsp;"role": "admin" // optioneel: "user" of "admin"<br>
                     }
                 </div>
             </div>
@@ -213,8 +214,8 @@
                 <div class="section-title">Request Body:</div>
                 <div class="params">
                     {<br>
-                    &nbsp;&nbsp;"email": "user@example.com",<br>
-                    &nbsp;&nbsp;"password": "password123"<br>
+                    &nbsp;&nbsp;"email": "demo@test.com", // gebruik bestaande user<br>
+                    &nbsp;&nbsp;"password": "demo123"<br>
                     }
                 </div>
             </div>
