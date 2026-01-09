@@ -26,8 +26,8 @@ Node.js REST API voor het beheren van manga's en nieuws artikelen. Gebouwd met E
 
 ```bash
 # Clone repository
-git clone https://github.com/amizer05/manga-api.git
-cd manga-api
+git clone https://github.com/amizer05/mangaverse-API.git
+cd mangaverse-API
 
 # Installeer dependencies
 npm install
