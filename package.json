@@ -1,19 +1,30 @@
 {
+<<<<<<< HEAD
   "name": "manga-api",
   "version": "1.0.0",
   "description": "MangaVerse API - Node.js backend for manga and news management",
+=======
+  "name": "mangaverse-api",
+  "version": "1.0.0",
+  "description": "Mangaverse API - Database-driven REST API with Node.js and Express for managing manga catalog",
+>>>>>>> 59775988cc5591501086a0950bf39b14e17599d8
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js"
   },
+<<<<<<< HEAD
   "keywords": ["manga", "api", "express", "nodejs"],
+=======
+  "keywords": ["api", "express", "nodejs", "manga", "rest-api", "mysql"],
+>>>>>>> 59775988cc5591501086a0950bf39b14e17599d8
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
     "mysql2": "^3.6.5",
+<<<<<<< HEAD
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
     "bcryptjs": "^2.4.3",
@@ -23,3 +34,11 @@
 }
 
 
+=======
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {}
+}
+
+>>>>>>> 59775988cc5591501086a0950bf39b14e17599d8

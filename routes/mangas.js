@@ -5,6 +5,7 @@ import {
   createManga,
   updateManga,
   deleteManga
+<<<<<<< HEAD
 } from '../controllers/mangaController.js';
 import { validateManga, validatePagination } from '../middleware/validation.js';
 import { authenticate, requireAdmin } from '../middleware/auth.js';
@@ -25,6 +26,18 @@ router.put('/:id', authenticate, validateManga, updateManga);
 
 // DELETE /mangas/:id - Delete manga (admin only)
 router.delete('/:id', authenticate, requireAdmin, deleteManga);
+=======
+} from '../controllers/mangasController.js';
+
+const router = express.Router();
+
+router.get('/', getAllMangas);
+router.get('/:id', getMangaById);
+router.post('/', createManga);
+router.put('/:id', updateManga);
+router.patch('/:id', updateManga);
+router.delete('/:id', deleteManga);
+>>>>>>> 59775988cc5591501086a0950bf39b14e17599d8
 
 export default router;
 

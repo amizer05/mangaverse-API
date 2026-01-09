@@ -2,6 +2,11 @@ node_modules/
 .env
 .DS_Store
 *.log
+<<<<<<< HEAD
 npm-debug.log*
 
+=======
+.vscode/
+.idea/
+>>>>>>> 59775988cc5591501086a0950bf39b14e17599d8
 
