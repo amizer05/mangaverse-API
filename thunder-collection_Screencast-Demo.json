@@ -1,0 +1,181 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "Screencast Demo",
+  "collectionId": "screencast-demo",
+  "requests": [
+    {
+      "name": "1. GET /mangas",
+      "method": "GET",
+      "url": "http://localhost:3000/mangas",
+      "headers": [],
+      "params": []
+    },
+    {
+      "name": "2. GET /mangas with Pagination",
+      "method": "GET",
+      "url": "http://localhost:3000/mangas",
+      "headers": [],
+      "params": [
+        {
+          "name": "limit",
+          "value": "3",
+          "enabled": true
+        },
+        {
+          "name": "offset",
+          "value": "0",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "name": "3. GET /mangas with Search",
+      "method": "GET",
+      "url": "http://localhost:3000/mangas",
+      "headers": [],
+      "params": [
+        {
+          "name": "search",
+          "value": "naruto",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "name": "4. GET /mangas with Sort",
+      "method": "GET",
+      "url": "http://localhost:3000/mangas",
+      "headers": [],
+      "params": [
+        {
+          "name": "sort",
+          "value": "title",
+          "enabled": true
+        },
+        {
+          "name": "order",
+          "value": "asc",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "name": "5. GET /mangas/:id",
+      "method": "GET",
+      "url": "http://localhost:3000/mangas/3",
+      "headers": [],
+      "params": []
+    },
+    {
+      "name": "6. GET /news",
+      "method": "GET",
+      "url": "http://localhost:3000/news",
+      "headers": [],
+      "params": []
+    },
+    {
+      "name": "7. GET /news/:id",
+      "method": "GET",
+      "url": "http://localhost:3000/news/5",
+      "headers": [],
+      "params": []
+    },
+    {
+      "name": "8. POST /auth/login",
+      "method": "POST",
+      "url": "http://localhost:3000/auth/login",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"demo@test.com\",\n  \"password\": \"demo123\"\n}"
+      },
+      "params": []
+    },
+    {
+      "name": "9. POST /mangas (Create)",
+      "method": "POST",
+      "url": "http://localhost:3000/mangas",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "enabled": true
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Dragon Ball\",\n  \"description\": \"The adventures of Goku and his friends as they defend Earth from various villains.\",\n  \"release_date\": \"1984-12-03\"\n}"
+      },
+      "params": []
+    },
+    {
+      "name": "10. POST /mangas (Validation Error)",
+      "method": "POST",
+      "url": "http://localhost:3000/mangas",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "enabled": true
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Test123\",\n  \"description\": \"Short\"\n}"
+      },
+      "params": []
+    },
+    {
+      "name": "11. PUT /mangas/:id (Update)",
+      "method": "PUT",
+      "url": "http://localhost:3000/mangas/3",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "enabled": true
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Naruto Shippuden\"\n}"
+      },
+      "params": []
+    },
+    {
+      "name": "12. DELETE /news/:id (Admin)",
+      "method": "DELETE",
+      "url": "http://localhost:3000/news/4",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}",
+          "enabled": true
+        }
+      ],
+      "params": []
+    }
+  ],
+  "folders": []
+}
