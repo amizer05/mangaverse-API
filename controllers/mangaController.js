@@ -33,7 +33,7 @@ export const getAllMangas = async (req, res) => {
     // Add sorting
     const validSorts = ['id', 'title', 'release_date', 'created_at'];
     const sortField = validSorts.includes(sort) ? sort : 'id';
-    const sortOrder = order.toLowerCase() === 'desc' ? 'DESC' : 'ASC';
+    const sortOrder = order.trim().toLowerCase() === 'desc' ? 'DESC' : 'ASC';
     query += ` ORDER BY ${sortField} ${sortOrder}`;
     
     // Add pagination (LIMIT and OFFSET must be integers, not placeholders in some MySQL versions)

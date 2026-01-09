@@ -39,7 +39,7 @@ export const getAllNews = async (req, res) => {
     // Add sorting
     const validSorts = ['id', 'title', 'created_at', 'category'];
     const sortField = validSorts.includes(sort) ? `n.${sort}` : 'n.created_at';
-    const sortOrder = order.toLowerCase() === 'desc' ? 'DESC' : 'ASC';
+    const sortOrder = order.trim().toLowerCase() === 'desc' ? 'DESC' : 'ASC';
     query += ` ORDER BY ${sortField} ${sortOrder}`;
     
     // Add pagination (LIMIT and OFFSET must be integers, not placeholders)

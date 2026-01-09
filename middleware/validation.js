@@ -15,7 +15,7 @@ export const handleValidationErrors = (req, res, next) => {
 };
 
 /**
- * Manga validation rules
+ * Manga validation rules (for POST - all fields required)
  */
 export const validateManga = [
   body('title')
@@ -56,7 +56,51 @@ export const validateManga = [
 ];
 
 /**
- * News validation rules
+ * Manga update validation rules (for PUT - all fields optional)
+ */
+export const validateMangaUpdate = [
+  body('title')
+    .optional()
+    .trim()
+    .notEmpty().withMessage('Title cannot be empty')
+    .isLength({ max: 255 }).withMessage('Title must be max 255 characters')
+    .matches(/^[^0-9]+$/).withMessage('Title cannot contain numbers'),
+  
+  body('description')
+    .optional()
+    .trim()
+    .notEmpty().withMessage('Description cannot be empty')
+    .isLength({ max: 255 }).withMessage('Description must be max 255 characters'),
+  
+  body('release_date')
+    .optional()
+    .notEmpty().withMessage('Release date cannot be empty')
+    .isISO8601().withMessage('Release date must be in YYYY-MM-DD format')
+    .custom((value) => {
+      const releaseDate = new Date(value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      if (releaseDate > today) {
+        throw new Error('Release date cannot be in the future');
+      }
+      return true;
+    }),
+  
+  body('cover_image')
+    .optional()
+    .isURL().withMessage('Cover image must be a valid URL'),
+  
+  body('slug')
+    .optional()
+    .trim()
+    .isLength({ max: 255 }).withMessage('Slug must be max 255 characters'),
+  
+  handleValidationErrors
+];
+
+/**
+ * News validation rules (for POST - all fields required)
  */
 export const validateNews = [
   body('title')
@@ -71,6 +115,34 @@ export const validateNews = [
   
   body('category')
     .notEmpty().withMessage('Category is required')
+    .isIn(['action', 'romance', 'comedy', 'drama']).withMessage('Category must be one of: action, romance, comedy, drama'),
+  
+  body('manga_id')
+    .optional()
+    .isInt({ min: 1 }).withMessage('Manga ID must be a positive integer'),
+  
+  handleValidationErrors
+];
+
+/**
+ * News update validation rules (for PUT - all fields optional)
+ */
+export const validateNewsUpdate = [
+  body('title')
+    .optional()
+    .trim()
+    .notEmpty().withMessage('Title cannot be empty')
+    .isLength({ max: 255 }).withMessage('Title must be max 255 characters'),
+  
+  body('content')
+    .optional()
+    .trim()
+    .notEmpty().withMessage('Content cannot be empty')
+    .isLength({ min: 20 }).withMessage('Content must be at least 20 characters'),
+  
+  body('category')
+    .optional()
+    .notEmpty().withMessage('Category cannot be empty')
     .isIn(['action', 'romance', 'comedy', 'drama']).withMessage('Category must be one of: action, romance, comedy, drama'),
   
   body('manga_id')
@@ -98,6 +170,7 @@ export const validatePagination = [
   
   query('order')
     .optional()
+    .trim()
     .isIn(['asc', 'desc']).withMessage('Order must be asc or desc'),
   
   handleValidationErrors
